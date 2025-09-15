@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pieDataset>
+
+  <pies>
+    <pie id="1">
+      <pieType>Quiche Lorraine</pieType>
+      <region>Lorraine</region>
+      <diameterCm>22.0</diameterCm>
+      <heightCm>4.5</heightCm>
+      <weightGrams>480</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Egg &amp; Meat</fillingCategory>
+      <price>6.80</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="2">
+      <pieType>Tarte aux Pommes</pieType>
+      <region>Normandy</region>
+      <diameterCm>20.0</diameterCm>
+      <heightCm>3.5</heightCm>
+      <weightGrams>420</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>5.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="3">
+      <pieType>Pâté en Croûte</pieType>
+      <region>Lyon</region>
+      <diameterCm>15.0</diameterCm>
+      <heightCm>8.0</heightCm>
+      <weightGrams>650</weightGrams>
+      <crustType>Pâte à Pâté</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>12.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Charcuterie</bakeryType>
+    </pie>
+
+    <pie id="4">
+      <pieType>Tarte Tatin</pieType>
+      <region>Loire Valley</region>
+      <diameterCm>18.5</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>380</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>7.20</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="5">
+      <pieType>Quiche aux Champignons</pieType>
+      <region>Paris</region>
+      <diameterCm>20.0</diameterCm>
+      <heightCm>4.2</heightCm>
+      <weightGrams>450</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>6.20</price>
+      <currency>EUR</currency>
+      <bakeryType>Boulangerie</bakeryType>
+    </pie>
+
+    <pie id="6">
+      <pieType>Pissaladière</pieType>
+      <region>Provence</region>
+      <diameterCm>25.0</diameterCm>
+      <heightCm>2.5</heightCm>
+      <weightGrams>320</weightGrams>
+      <crustType>Pâte à Pain</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>4.80</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="7">
+      <pieType>Tarte aux Fraises</pieType>
+      <region>Île-de-France</region>
+      <diameterCm>19.0</diameterCm>
+      <heightCm>3.0</heightCm>
+      <weightGrams>350</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>8.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="8">
+      <pieType>Tourte aux Épinards</pieType>
+      <region>Provence</region>
+      <diameterCm>16.0</diameterCm>
+      <heightCm>6.0</heightCm>
+      <weightGrams>520</weightGrams>
+      <crustType>Pâte Feuilletée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>7.90</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="9">
+      <pieType>Tarte Flambée</pieType>
+      <region>Alsace</region>
+      <diameterCm>28.0</diameterCm>
+      <heightCm>1.5</heightCm>
+      <weightGrams>280</weightGrams>
+      <crustType>Pâte Fine</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>9.20</price>
+      <currency>EUR</currency>
+      <bakeryType>Bistro</bakeryType>
+    </pie>
+
+    <pie id="10">
+      <pieType>Tarte au Citron</pieType>
+      <region>Provence</region>
+      <diameterCm>17.5</diameterCm>
+      <heightCm>4.5</heightCm>
+      <weightGrams>390</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>6.90</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="11">
+      <pieType>Galette des Rois</pieType>
+      <region>Nationwide</region>
+      <diameterCm>21.0</diameterCm>
+      <heightCm>3.0</heightCm>
+      <weightGrams>410</weightGrams>
+      <crustType>Pâte Feuilletée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>15.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Seasonal</bakeryType>
+    </pie>
+
+    <pie id="12">
+      <pieType>Quiche Saumon</pieType>
+      <region>Brittany</region>
+      <diameterCm>18.0</diameterCm>
+      <heightCm>4.8</heightCm>
+      <weightGrams>465</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Fish</fillingCategory>
+      <price>8.90</price>
+      <currency>EUR</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="13">
+      <pieType>Tarte aux Myrtilles</pieType>
+      <region>Vosges</region>
+      <diameterCm>16.5</diameterCm>
+      <heightCm>3.2</heightCm>
+      <weightGrams>315</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>6.40</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="14">
+      <pieType>Tourte Savoyarde</pieType>
+      <region>Savoy</region>
+      <diameterCm>14.0</diameterCm>
+      <heightCm>7.5</heightCm>
+      <weightGrams>580</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>11.20</price>
+      <currency>EUR</currency>
+      <bakeryType>Regional</bakeryType>
+    </pie>
+
+    <pie id="15">
+      <pieType>Tarte aux Poireaux</pieType>
+      <region>Nord-Pas-de-Calais</region>
+      <diameterCm>19.5</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>425</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>5.80</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="16">
+      <pieType>Millefeuille</pieType>
+      <region>Paris</region>
+      <diameterCm>12.0</diameterCm>
+      <heightCm>6.0</heightCm>
+      <weightGrams>180</weightGrams>
+      <crustType>Pâte Feuilletée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>4.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="17">
+      <pieType>Tarte Alsacienne</pieType>
+      <region>Alsace</region>
+      <diameterCm>20.5</diameterCm>
+      <heightCm>3.8</heightCm>
+      <weightGrams>440</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>7.70</price>
+      <currency>EUR</currency>
+      <bakeryType>Regional</bakeryType>
+    </pie>
+
+    <pie id="18">
+      <pieType>Quiche Courgette</pieType>
+      <region>Provence</region>
+      <diameterCm>17.0</diameterCm>
+      <heightCm>4.5</heightCm>
+      <weightGrams>385</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>6.60</price>
+      <currency>EUR</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="19">
+      <pieType>Pâté de Pâques</pieType>
+      <region>Poitou</region>
+      <diameterCm>13.5</diameterCm>
+      <heightCm>9.0</heightCm>
+      <weightGrams>720</weightGrams>
+      <crustType>Pâte à Pâté</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>16.80</price>
+      <currency>EUR</currency>
+      <bakeryType>Seasonal</bakeryType>
+    </pie>
+
+    <pie id="20">
+      <pieType>Tarte Tropézienne</pieType>
+      <region>Côte d'Azur</region>
+      <diameterCm>15.5</diameterCm>
+      <heightCm>5.0</heightCm>
+      <weightGrams>290</weightGrams>
+      <crustType>Brioche</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>9.90</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="21">
+      <pieType>Flamiche aux Poireaux</pieType>
+      <region>Picardy</region>
+      <diameterCm>22.5</diameterCm>
+      <heightCm>3.5</heightCm>
+      <weightGrams>510</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>8.30</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="22">
+      <pieType>Tarte aux Prunes</pieType>
+      <region>Alsace</region>
+      <diameterCm>18.0</diameterCm>
+      <heightCm>3.0</heightCm>
+      <weightGrams>365</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>6.10</price>
+      <currency>EUR</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="23">
+      <pieType>Vol-au-Vent</pieType>
+      <region>Paris</region>
+      <diameterCm>10.0</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>120</weightGrams>
+      <crustType>Pâte Feuilletée</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>3.80</price>
+      <currency>EUR</currency>
+      <bakeryType>Boulangerie</bakeryType>
+    </pie>
+
+    <pie id="24">
+      <pieType>Tarte Bourdaloue</pieType>
+      <region>Paris</region>
+      <diameterCm>19.0</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>405</weightGrams>
+      <crustType>Pâte Sucrée</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>7.50</price>
+      <currency>EUR</currency>
+      <bakeryType>Pâtisserie</bakeryType>
+    </pie>
+
+    <pie id="25">
+      <pieType>Tourte aux Blettes</pieType>
+      <region>Nice</region>
+      <diameterCm>16.0</diameterCm>
+      <heightCm>5.5</heightCm>
+      <weightGrams>475</weightGrams>
+      <crustType>Pâte Brisée</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>6.70</price>
+      <currency>EUR</currency>
+      <bakeryType>Regional</bakeryType>
+    </pie>
+  </pies>
+
+</pieDataset>
+

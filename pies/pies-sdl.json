@@ -1,0 +1,311 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "PieDatasetImport",
+    "description": "Imports pie data from an XML dataset.",
+    "author": "Data Engineer Assistant",
+    "created": "2023-10-27T10:00:00Z"
+  },
+  "format": {
+    "type": "xml",
+    "encoding": "UTF-8",
+    "options": {
+      "record_path": "//pies/pie",
+      "field_attribute": null
+    }
+  },
+  "globals": {
+    "variables": {},
+    "lookup_tables": {}
+  },
+  "preprocessing": [
+    {
+      "type": "filter",
+      "condition": {
+        "field": "pieType",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "region",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "diameterCm",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "heightCm",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "weightGrams",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "crustType",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "fillingCategory",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "price",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "currency",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    },
+    {
+      "type": "filter",
+      "condition": {
+        "field": "bakeryType",
+        "operator": "is_not_null"
+      },
+      "on_failure": "skip"
+    }
+  ],
+  "mappings": [
+    {
+      "source_field": "pieType",
+      "target_field": "pie_type",
+      "transforms": [
+        {
+          "type": "trim"
+        },
+        {
+          "type": "regex_replace",
+          "pattern": "&amp;",
+          "replacement": "&"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 255
+        }
+      ]
+    },
+    {
+      "source_field": "region",
+      "target_field": "region",
+      "transforms": [
+        {
+          "type": "trim"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 255
+        }
+      ]
+    },
+    {
+      "source_field": "diameterCm",
+      "target_field": "diameter_cm",
+      "transforms": [
+        {
+          "type": "to_float"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "range",
+          "min": 0
+        }
+      ]
+    },
+    {
+      "source_field": "heightCm",
+      "target_field": "height_cm",
+      "transforms": [
+        {
+          "type": "to_float"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "range",
+          "min": 0
+        }
+      ]
+    },
+    {
+      "source_field": "weightGrams",
+      "target_field": "weight_grams",
+      "transforms": [
+        {
+          "type": "to_float"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "range",
+          "min": 0
+        }
+      ]
+    },
+    {
+      "source_field": "crustType",
+      "target_field": "crust_type",
+      "transforms": [
+        {
+          "type": "trim"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 255
+        }
+      ]
+    },
+    {
+      "source_field": "fillingCategory",
+      "target_field": "filling_category",
+      "transforms": [
+        {
+          "type": "trim"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 255
+        }
+      ]
+    },
+    {
+      "source_field": "price",
+      "target_field": "price",
+      "transforms": [
+        {
+          "type": "to_float"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "range",
+          "min": 0
+        }
+      ]
+    },
+    {
+      "source_field": "currency",
+      "target_field": "currency",
+      "transforms": [
+        {
+          "type": "trim"
+        },
+        {
+          "type": "upper"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 3
+        },
+        {
+          "type": "pattern",
+          "value": "^[A-Z]{3}$"
+        }
+      ]
+    },
+    {
+      "source_field": "bakeryType",
+      "target_field": "bakery_type",
+      "transforms": [
+        {
+          "type": "trim"
+        }
+      ],
+      "validation": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "max_length",
+          "value": 255
+        }
+      ]
+    }
+  ],
+  "postprocessing": [],
+  "output": {
+    "format": "trustgraph-objects",
+    "schema_name": "pies",
+    "options": {
+      "confidence": 0.9,
+      "batch_size": 500
+    },
+    "error_handling": {
+      "on_validation_error": "log_and_skip",
+      "on_transform_error": "log_and_skip",
+      "max_errors": 50
+    }
+  }
+}

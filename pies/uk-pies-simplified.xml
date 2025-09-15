@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pieDataset>
+
+  <pies>
+    <pie id="1">
+      <pieType>Steak &amp; Kidney</pieType>
+      <region>Yorkshire</region>
+      <diameterCm>12.5</diameterCm>
+      <heightCm>4.2</heightCm>
+      <weightGrams>285</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>3.50</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="2">
+      <pieType>Cornish Pasty</pieType>
+      <region>Cornwall</region>
+      <diameterCm>18.0</diameterCm>
+      <heightCm>6.5</heightCm>
+      <weightGrams>320</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Meat &amp; Veg</fillingCategory>
+      <price>4.20</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="3">
+      <pieType>Scotch Pie</pieType>
+      <region>Scotland</region>
+      <diameterCm>9.5</diameterCm>
+      <heightCm>3.8</heightCm>
+      <weightGrams>180</weightGrams>
+      <crustType>Hot Water Crust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>2.80</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="4">
+      <pieType>Pork Pie</pieType>
+      <region>Melton Mowbray</region>
+      <diameterCm>8.0</diameterCm>
+      <heightCm>5.5</heightCm>
+      <weightGrams>240</weightGrams>
+      <crustType>Hot Water Crust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>4.50</price>
+      <currency>GBP</currency>
+      <bakeryType>Artisan</bakeryType>
+    </pie>
+
+    <pie id="5">
+      <pieType>Chicken &amp; Mushroom</pieType>
+      <region>London</region>
+      <diameterCm>11.0</diameterCm>
+      <heightCm>3.5</heightCm>
+      <weightGrams>220</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>3.80</price>
+      <currency>GBP</currency>
+      <bakeryType>Chain</bakeryType>
+    </pie>
+
+    <pie id="6">
+      <pieType>Shepherd's Pie</pieType>
+      <region>Lancashire</region>
+      <diameterCm>15.0</diameterCm>
+      <heightCm>6.0</heightCm>
+      <weightGrams>450</weightGrams>
+      <crustType>Mashed Potato</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>5.20</price>
+      <currency>GBP</currency>
+      <bakeryType>Pub</bakeryType>
+    </pie>
+
+    <pie id="7">
+      <pieType>Fish Pie</pieType>
+      <region>Scotland</region>
+      <diameterCm>14.5</diameterCm>
+      <heightCm>5.5</heightCm>
+      <weightGrams>380</weightGrams>
+      <crustType>Mashed Potato</crustType>
+      <fillingCategory>Fish</fillingCategory>
+      <price>6.50</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="8">
+      <pieType>Apple Pie</pieType>
+      <region>Kent</region>
+      <diameterCm>20.0</diameterCm>
+      <heightCm>4.5</heightCm>
+      <weightGrams>420</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>4.00</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="9">
+      <pieType>Banoffee Pie</pieType>
+      <region>London</region>
+      <diameterCm>18.5</diameterCm>
+      <heightCm>6.0</heightCm>
+      <weightGrams>385</weightGrams>
+      <crustType>Digestive Base</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>5.50</price>
+      <currency>GBP</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="10">
+      <pieType>Treacle Tart</pieType>
+      <region>Oxfordshire</region>
+      <diameterCm>16.0</diameterCm>
+      <heightCm>3.0</heightCm>
+      <weightGrams>290</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>3.20</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="11">
+      <pieType>Game Pie</pieType>
+      <region>Yorkshire</region>
+      <diameterCm>13.5</diameterCm>
+      <heightCm>7.0</heightCm>
+      <weightGrams>520</weightGrams>
+      <crustType>Hot Water Crust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>8.50</price>
+      <currency>GBP</currency>
+      <bakeryType>Artisan</bakeryType>
+    </pie>
+
+    <pie id="12">
+      <pieType>Cheese &amp; Onion</pieType>
+      <region>Wales</region>
+      <diameterCm>10.5</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>195</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>2.90</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="13">
+      <pieType>Steak &amp; Ale</pieType>
+      <region>Newcastle</region>
+      <diameterCm>12.0</diameterCm>
+      <heightCm>4.8</heightCm>
+      <weightGrams>310</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>4.10</price>
+      <currency>GBP</currency>
+      <bakeryType>Pub</bakeryType>
+    </pie>
+
+    <pie id="14">
+      <pieType>Mince Pie</pieType>
+      <region>Nationwide</region>
+      <diameterCm>6.5</diameterCm>
+      <heightCm>2.5</heightCm>
+      <weightGrams>45</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>1.20</price>
+      <currency>GBP</currency>
+      <bakeryType>Seasonal</bakeryType>
+    </pie>
+
+    <pie id="15">
+      <pieType>Eccles Cake</pieType>
+      <region>Manchester</region>
+      <diameterCm>8.5</diameterCm>
+      <heightCm>2.0</heightCm>
+      <weightGrams>85</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>1.80</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="16">
+      <pieType>Toad in the Hole</pieType>
+      <region>Yorkshire</region>
+      <diameterCm>22.0</diameterCm>
+      <heightCm>8.0</heightCm>
+      <weightGrams>650</weightGrams>
+      <crustType>Yorkshire Pudding</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>7.20</price>
+      <currency>GBP</currency>
+      <bakeryType>Pub</bakeryType>
+    </pie>
+
+    <pie id="17">
+      <pieType>Chicken Balti Pie</pieType>
+      <region>Birmingham</region>
+      <diameterCm>11.5</diameterCm>
+      <heightCm>4.0</heightCm>
+      <weightGrams>265</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>4.30</price>
+      <currency>GBP</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="18">
+      <pieType>Haggis Pie</pieType>
+      <region>Edinburgh</region>
+      <diameterCm>10.0</diameterCm>
+      <heightCm>4.5</heightCm>
+      <weightGrams>210</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>3.70</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="19">
+      <pieType>Veggie Wellington</pieType>
+      <region>London</region>
+      <diameterCm>25.0</diameterCm>
+      <heightCm>6.5</heightCm>
+      <weightGrams>580</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>8.90</price>
+      <currency>GBP</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="20">
+      <pieType>Beef &amp; Guinness</pieType>
+      <region>Belfast</region>
+      <diameterCm>12.8</diameterCm>
+      <heightCm>5.2</heightCm>
+      <weightGrams>340</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>4.60</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="21">
+      <pieType>Lamb &amp; Mint</pieType>
+      <region>Wales</region>
+      <diameterCm>11.2</diameterCm>
+      <heightCm>4.3</heightCm>
+      <weightGrams>275</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>4.80</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="22">
+      <pieType>Chicken Tikka Pie</pieType>
+      <region>Leicester</region>
+      <diameterCm>10.8</diameterCm>
+      <heightCm>3.9</heightCm>
+      <weightGrams>245</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>3.95</price>
+      <currency>GBP</currency>
+      <bakeryType>Modern</bakeryType>
+    </pie>
+
+    <pie id="23">
+      <pieType>Rhubarb Crumble Pie</pieType>
+      <region>Yorkshire</region>
+      <diameterCm>19.0</diameterCm>
+      <heightCm>5.5</heightCm>
+      <weightGrams>465</weightGrams>
+      <crustType>Shortcrust</crustType>
+      <fillingCategory>Sweet</fillingCategory>
+      <price>4.70</price>
+      <currency>GBP</currency>
+      <bakeryType>Traditional</bakeryType>
+    </pie>
+
+    <pie id="24">
+      <pieType>Mushroom &amp; Leek</pieType>
+      <region>Devon</region>
+      <diameterCm>13.0</diameterCm>
+      <heightCm>4.1</heightCm>
+      <weightGrams>230</weightGrams>
+      <crustType>Puff Pastry</crustType>
+      <fillingCategory>Vegetarian</fillingCategory>
+      <price>3.60</price>
+      <currency>GBP</currency>
+      <bakeryType>Artisan</bakeryType>
+    </pie>
+
+    <pie id="25">
+      <pieType>Rabbit Pie</pieType>
+      <region>Norfolk</region>
+      <diameterCm>14.0</diameterCm>
+      <heightCm>6.8</heightCm>
+      <weightGrams>480</weightGrams>
+      <crustType>Hot Water Crust</crustType>
+      <fillingCategory>Meat</fillingCategory>
+      <price>7.80</price>
+      <currency>GBP</currency>
+      <bakeryType>Artisan</bakeryType>
+    </pie>
+  </pies>
+
+</pieDataset>
+
