@@ -1,0 +1,2220 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ns1: <http://schema.org/> .
+@prefix ns2: <http://www.opengis.net/def/ont/modspec/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns2:implementedBy a owl:ObjectProperty ;
+    owl:inverseOf ns2:implements ;
+    skos:definition "link from a requirement linked to an element in a UML model to an RDFS/OWL class or property which implements it" .
+
+sosa:Battery rdfs:label "Battery"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    rdfs:subClassOf sosa:System ;
+    skos:definition "A Battery powering a System as its primary or secondary power source. As this is a specialization of the System class modeling of integrated battery management systems is also possible."@en .
+
+sosa:MaterialSample a owl:Class ;
+    rdfs:label "Material Sample"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-basic/MaterialSample> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf sosa:Sample ;
+    skos:definition """
+  subset of a FeatureOfInterest that is physical (i.e., tangible)
+  """@en ;
+    skos:example "A piece of rock, a blood sample, a water sample, etc."@en ;
+    skos:note "MaterialSamples may be destroyed in connexion with the observation act or a subsequent preparation step."@en,
+        "MaterialSamples that are curated and preserved are sometimes known as 'specimens'."@en .
+
+sosa:NormalOperatingConditions a owl:Class ;
+    rdfs:label "Normal Operating Conditions"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    rdfs:subClassOf sosa:OperatingConditions ;
+    skos:definition """
+  Type of observation or observation collection that describe the conditions under which a system is expected to operate normally.
+  """@en .
+
+sosa:Result a owl:Class ;
+    rdfs:label "Result"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sosa:isResultOf ;
+            owl:someValuesFrom sosa:Execution ] ;
+    owl:deprecated true ;
+    skos:definition """
+  outcome of an Observation, Actuation, or act of Sampling. 
+  
+  To store an observation's simple result value one can use the hasSimpleResult property.
+  """@en ;
+    skos:example "The value 20 as the height of a certain tree together with the unit, e.g., Meter."@en .
+
+sosa:SpatialSample a owl:Class ;
+    rdfs:label "Spatial Sample"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-basic/SpatialSample> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf sosa:Sample ;
+    skos:definition """
+  subset of a FeatureOfInterest defined by its location and shape in space
+  
+  When observations are made to estimate properties of a geospatial feature, particularly where the value of a property varies within the scope of the feature, a SpatialSample is used.
+  """@en ;
+    skos:example "Some common names for spatial samples include: borehole, flightline, interval, lidar cloud, map horizon, microscope slide, mine level, mine, observation well, profile,  quadrat, scene, section, ship track, spot, station, swath, trajectory, traverse, etc..."@en ;
+    skos:note "Depending on accessibility and on the nature of the expected property variation, a SpatialSample may extend in one, two or three spatial dimensions."@en .
+
+sosa:StatisticalSample a owl:Class ;
+    rdfs:label "Statistical Sample"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-basic/StatisticalSample> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf sosa:Sample ;
+    skos:definition """
+  subset of a FeatureOfInterest defined by the statistical process used to create it
+  """@en ;
+    skos:example "The male or female subset of a population."@en ;
+    skos:note "StatisticalSamples usually apply to populations or other sets, of which a certain subset may be of specific interest."@en .
+
+sosa:SuboptimalOperatingConditions a owl:Class ;
+    rdfs:label "Suboptimal Conditions"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    rdfs:subClassOf sosa:OperatingConditions ;
+    skos:definition """
+ Type of observation or observation collection that describe the conditions under which a system is expected to operate sub-optimally.
+ Results will still be reported but the performance of the sensor, in term of precision for example, will be impaired.
+  """@en .
+
+sosa:SurvivableConditions a owl:Class ;
+    rdfs:label "Survivable Conditions"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    rdfs:subClassOf sosa:OperatingConditions ;
+    skos:definition """
+  Type of observation or observation collection that describe the conditions under which a system is expected to survive, that is to continue to exist in its current form,
+  even if its future operations are impaired. A typical example is the temperature at which a sensor looses physical integrity and looses its shape.
+  A system or sensor exposed to conditions outside of those reported by SurvivableConditions will no longer be serviceable.
+  """@en .
+
+sosa:endTime a owl:DatatypeProperty ;
+    rdfs:label "end time"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection ;
+    rdfs:comment "The value would usually be encoded using xsd:dateTime xsd:date xsd:gYearMonth xsd:gYear"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  instant of time when the Execution or Deployment was ended or completed
+  """@en .
+
+sosa:hasOperatingConditions a owl:ObjectProperty ;
+    rdfs:label "has operating conditions"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:OperatingConditions ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    skos:definition """
+  Relation between a System and its Operating Conditions, modelled as ObservationCollection (or Observation) describing
+  conditions under which the System can operate. A short but extensible list of sub-classes of OperatingConditions is
+  provided in SSN-System, such as normal operating conditions, suboptimal conditions, and survivable conditions.
+  """@en .
+
+sosa:hasSimpleResult a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has simple result"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/result-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  relation from an Execution to its value expressed as a literal
+
+  In the case of an Actuation, the result may be the value of the Property following the execution of the Procedure by the Actuator. 
+
+  In the case of an Observation, the result is the value of the Property produced by the execution of the Procedure by the Sensor. 
+  """@en ;
+    skos:example "For instance, the values 23 or true."@en ;
+    skos:note "This DatatypeProperty provides an alternative to hasResult, to be used only if the execution result can be expressed as a Literal"@en .
+
+sosa:hasSystemCapability a owl:ObjectProperty ;
+    rdfs:label "has system capability"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    skos:definition "Relation between a System and an ObservationCollection (or Observation) describing the capability of the system. A sensor or system may have more than one set of system capabilities with different validity contexts."@en .
+
+sosa:hasValidityContext a owl:ObjectProperty ;
+    rdfs:label "has validity context"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Property ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    skos:definition "Links a an observation collection or observation (typically about the system capabilities) or a property (typically about the system capabilities) to its validity context, described as an observation collection or observation (typically about the system environment)."@en .
+
+sosa:inputValueForExecution a owl:ObjectProperty ;
+    rdfs:label "input value for execution"@en ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:Sampling ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasInputValue ;
+    skos:definition """
+  relation from an input value to an Execution that used it
+  """@en .
+
+sosa:isUltimateFeatureOfInterestOf a owl:ObjectProperty ;
+    rdfs:label "is ultimate feature of interest of"@en ;
+    ns1:domainIncludes sosa:FeatureOfInterest ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasUltimateFeatureOfInterest ;
+    skos:definition """
+  relation from an ultimate FeatureOfInterest to an Execution, Execution Collection, or Deployment, for which it is the ultimate subject
+  """@en .
+
+<http://www.w3.org/ns/sosa/oms/madeOnPlatform> a owl:ObjectProperty ;
+    rdfs:label "made on platform"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns1:rangeIncludes sosa:Platform ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/host-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "Relation between an Observation and the Platform the Sensor was attached to at the time the observation was made."@en .
+
+<http://www.w3.org/ns/sosa/oms/metadata> a owl:ObjectProperty ;
+    ns1:domainIncludes sosa:ActuatingProcedure,
+        sosa:Actuator,
+        sosa:Deployment,
+        sosa:FeatureOfInterest,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:ObservingProcedure,
+        sosa:Platform,
+        sosa:Procedure,
+        sosa:Property,
+        sosa:Sample,
+        sosa:SampleCollection,
+        sosa:Sampler,
+        sosa:Sampling,
+        sosa:SamplingCollection,
+        sosa:SamplingProcedure,
+        sosa:Sensor,
+        <http://www.w3.org/ns/sosa/oms/PreparationProcedure>,
+        <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-core/gen/metadata-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> .
+
+<http://www.w3.org/ns/sosa/oms/observationType> a owl:ObjectProperty ;
+    rdfs:label "observation type"@en ;
+    ns1:domainIncludes sosa:Observation ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-core/AbstractObservationCharacteristics/type-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "Information providing further detail on the type of Observations."@en .
+
+<http://www.w3.org/ns/sosa/oms/preparedSample> a owl:ObjectProperty ;
+    rdfs:label "prepared sample"@en ;
+    ns1:domainIncludes <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+    ns1:rangeIncludes sosa:Sample ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationStep/preparedSample-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "The Sample on which the PreparationProcedure is performed."@en .
+
+<http://www.w3.org/ns/sosa/oms/processingDetails> a owl:ObjectProperty ;
+    rdfs:label "processing details"@en ;
+    ns1:domainIncludes <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+    ns1:rangeIncludes <http://www.w3.org/ns/sosa/oms/PreparationProcedure> ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationStep/processingDetails-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "The PreparationProcedure used by the PreparationStep."@en .
+
+<http://www.w3.org/ns/sosa/oms/relatedSampling> a owl:ObjectProperty ;
+    rdfs:label "related sampling"@en ;
+    ns1:domainIncludes sosa:Sampling ;
+    ns1:rangeIncludes sosa:Sampling ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/relatedSampling-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "Relation to an act of Sampling."@en .
+
+<http://www.w3.org/ns/sosa/oms/samplePreparationStep> a owl:ObjectProperty ;
+    rdfs:label "sample preparation step"@en ;
+    ns1:domainIncludes <http://www.w3.org/ns/sosa/oms/PreparationProcedure> ;
+    ns1:rangeIncludes <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationProcedure/samplePreparationStep-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "A PreparationStep that uses the PreparationProcedure."@en .
+
+<http://www.w3.org/ns/sosa/oms/validTime> a owl:ObjectProperty ;
+    rdfs:label "valid time"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling ;
+    ns1:rangeIncludes dcterms:PeriodOfTime,
+        time:Interval ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/validTime-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "The time interval during which the result is assumed to be applicable for use."@en .
+
+sosa:resultTime a owl:DatatypeProperty ;
+    rdfs:label "result time"@en ;
+    ns1:domainIncludes sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/resultTime-sem> ;
+    rdfs:comment "The value would usually be encoded using xsd:dateTime xsd:date xsd:gYearMonth xsd:gYear"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  instant of time when the Execution was completed
+  """@en .
+
+sosa:startTime a owl:DatatypeProperty ;
+    rdfs:label "start time"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    rdfs:comment "The value would usually be encoded using xsd:dateTime xsd:date xsd:gYearMonth xsd:gYear"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  instant of time when the Execution or Deployment was initiated or tasked
+  """@en .
+
+<http://www.w3.org/ns/ssn/act/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Actuation classes and properties for the SSN Ontology."@en,
+        """Actuation classes and properties for the SSN Ontology.
+  This module adds RDFS and OWL axioms to the terms defined in SOSA Actuation
+  """@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "SSN Ontology - actuation module"@en,
+        "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/act/>,
+        <http://www.w3.org/ns/ssn/common/> .
+
+<http://www.w3.org/ns/ssn/oms/> a owl:Ontology ;
+    dcterms:created "2023-12-06"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "This ontology is based on the SOSA Ontology by the W3C/OGC Spatial Data on the Web Working Group, supplemented by some classes and properties required to implement ISO 19156:2023 , with axiomatization following SSN."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:source <https://docs.ogc.org/as/20-082r4/20-082r4.html> ;
+    dcterms:title "OMS Ontology - based on (SOSA) Ontology with SSN axiomatization"@en ;
+    rdfs:comment "Vertical module adding SSN-style axioms to the SOSA-OMS module" ;
+    owl:imports <http://www.w3.org/ns/sosa/oms/>,
+        <http://www.w3.org/ns/ssn/obs/>,
+        <http://www.w3.org/ns/ssn/sam/> .
+
+ns2:implements a owl:ObjectProperty ;
+    rdfs:subPropertyOf dcterms:source,
+        <https://www.w3.org/TR/prov-o/#wasDerivedFrom> ;
+    skos:definition "link from an RDFS/OWL class or property to a requirement linked to an element in a UML model which it implements" .
+
+sosa:featureHasUltimateSample a owl:ObjectProperty ;
+    rdfs:label "feature has ultimate sample"@en ;
+    ns1:domainIncludes sosa:FeatureOfInterest ;
+    ns1:rangeIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:isSampleOfUltimateFOI ;
+    skos:definition """
+  relation from an ultimate FeatureOfInterest to a Sample or SampleCollection that is intended to be representative of it; i.e., the end of a chain of hasSample relations
+  """@en .
+
+sosa:hasInput a owl:ObjectProperty ;
+    rdfs:label "has input"@en ;
+    ns1:domainIncludes sosa:Procedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:inputFor ;
+    skos:definition """
+  relation from a Procedure to an input required for its execution
+  """@en ;
+    skos:note "This property will typically describe the type of the inputs required to execute the Procedure."@en ;
+    skos:scopeNote "An input might be a calibration or conditioning parameter, or the output of a previous procedure within an extended processing chain."@en .
+
+sosa:hasInputValue a owl:ObjectProperty ;
+    rdfs:label "has input value"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:Sampling ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  assigns a value to an input defined by the Procedure that is used in an Execution
+  """@en ;
+    skos:note "The input value MUST be consistent with a hasInput definition from the corresponding Procedure"@en ;
+    skos:scopeNote "The input might be a calibration or conditioning parameter, or the output of a previous procedure within an extended processing chain."@en .
+
+sosa:hasOutput a owl:ObjectProperty ;
+    rdfs:label "has output"@en ;
+    ns1:domainIncludes sosa:Procedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:outputFor ;
+    skos:definition """
+  relation from a Procedure to an output of its execution
+  """@en ;
+    skos:note "This property will typically describe the type of the result from executing the Procedure."@en .
+
+sosa:hasProcedure a owl:ObjectProperty ;
+    rdfs:label "has procedure"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Procedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subPropertyOf sosa:propertyFor ;
+    owl:inverseOf [ rdfs:subPropertyOf sosa:forProperty ] ;
+    skos:definition """
+  relation from a Property to a Procedure that can observe or act on it
+  """@en .
+
+sosa:hasProxy a owl:ObjectProperty ;
+    rdfs:label "has proxy"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Stimulus ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:isProxyFor ;
+    skos:definition """
+  relation from an Property to a Stimulus that serves as its proxy
+  """@en ;
+    skos:example """
+For example, the expansion of mercury is a Stimulus that serves as a proxy for some temperature Property.
+An increase or decrease in the velocity of spinning cups on a wind Sensor is serving as a proxy for the wind speed.
+  """@en .
+
+sosa:inputFor a owl:ObjectProperty ;
+    rdfs:label "input for"@en ;
+    ns1:rangeIncludes sosa:Procedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasInput ;
+    skos:definition """
+  relation from an input to a Procedure that uses it in an Execution
+  """@en .
+
+sosa:isMemberOf a owl:ObjectProperty ;
+    rdfs:label "is member of collection" ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sample,
+        sosa:SampleCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:ActuationCollection,
+        sosa:ExecutionCollection,
+        sosa:ObservationCollection,
+        sosa:SampleCollection,
+        sosa:SamplingCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasMember ;
+    skos:definition """
+  link from an Execution or Sample or Collection of these, to a collection that it is part of
+  """ ;
+    skos:editorialNote "Note that there is a single `member` property. OWL or SHACL constraints may limit the range depending on the context of different collection types" ;
+    skos:scopeNote "rules for the consistency of values of properties of collections and properties of their members are given for each collection type" .
+
+sosa:isOriginalSampleOf a owl:ObjectProperty ;
+    rdfs:label "is original sample  of"@en ;
+    ns1:domainIncludes sosa:Sample ;
+    ns1:rangeIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:hasOriginalSample ;
+    skos:definition """
+  relation from the initial Sample collected from the ultimate FeatureOfInterest to a downstream Sample or SampleCollection
+  """@en .
+
+sosa:madeSamplingHasResult a owl:ObjectProperty ;
+    rdfs:label "made sampling has result"@en ;
+    ns1:domainIncludes sosa:Sampler ;
+    ns1:rangeIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:isResultOfMadeBySampler ;
+    owl:propertyChainAxiom ( sosa:madeSampling sosa:hasResult ) ;
+    skos:definition """
+  relation from a Sampler to a Sample or SampleCollection made by it
+  """@en .
+
+sosa:observationRelatedTo a owl:ObjectProperty ;
+    rdfs:label "observation related to"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns1:rangeIncludes sosa:Execution,
+        sosa:ExecutionCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:relatedObservation ;
+    skos:definition """
+  relation from an Observation or ObservationCollection to another Execution or ExecutionCollection
+  """@en ;
+    skos:scopeNote "This general relationship complements the specific predicates outbound from Observation. It is particularly useful to relate Observations (and collections) to other Executions (and collections)" .
+
+<http://www.w3.org/ns/sosa/oms/hasPreparationStep> a owl:ObjectProperty ;
+    rdfs:label "has preparation step"@en ;
+    ns1:domainIncludes sosa:Sample ;
+    ns1:rangeIncludes <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sample/preparationStep-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    skos:definition "Link to a preparation step used to prepare the sample"@en .
+
+sosa:outputFor a owl:ObjectProperty ;
+    rdfs:label "output for"@en ;
+    ns1:rangeIncludes sosa:Procedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasOutput ;
+    skos:definition """
+  relation from an output to a Procedure that generates it in an Execution
+  """@en .
+
+sosa:phenomenonOccurred a owl:ObjectProperty ;
+    rdfs:label "phenomenon occurred"@en ;
+    ns1:domainIncludes time:TemporalEntity ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:Sampling ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:phenomenonTime ;
+    skos:definition """
+  result of an Execution that this time applies to
+  """@en .
+
+sosa:phenomenonTime a owl:ObjectProperty ;
+    rdfs:label "phenomenon time"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes time:TemporalEntity ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/phenomenonTime-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:phenomenonOccurred ;
+    skos:definition """
+  time that the result of an Execution applies to the subject entity
+
+  It may be an interval or an instant, or some other compound temporal entity [[!owl-time]].
+  """@en ;
+    skos:scopeNote """
+  The phenomenonTime is not necessarily the same as the resultTime. 
+  
+  In the case of Actuation, phenomenonTime SHOULD indicate the time during which the actuator was active. 
+
+  In the case of Observation, the phenomenonTime MAY be distant from the resultTime. 
+  For example in the case of forecasts the phenomenonTime is after the resultTime. 
+  In historical, geological and cosmological investigations the phenomenonTime can be far in the past, while the resultTime is contemporary. 
+
+  In the case of Sampling the phenomenonTime SHOULD indicate the time during which the Sampling Procedure was active.
+  The resultTime can indicate when the sample comes into the posession of the operator. 
+  """@en .
+
+sosa:qualityOf a owl:ObjectProperty ;
+    rdfs:label "quality of" ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:resultQuality ;
+    skos:definition """
+  link from a quality description to an Observation or ObservationCollection that it relates to
+  """@en .
+
+sosa:relatedObservation a owl:ObjectProperty ;
+    rdfs:label "related observation"@en ;
+    ns1:domainIncludes sosa:Execution,
+        sosa:ExecutionCollection ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:observationRelatedTo ;
+    skos:definition """
+  relation from an Execution or ExecutionCollection to an Observation or ObservationCollection
+  """@en ;
+    skos:scopeNote "This general relationship complements the specific predicates inbound to Observation. It is particularly useful to relate Observations (and collections) to other Executions (and collections)" .
+
+sosa:resultQuality a owl:ObjectProperty ;
+    rdfs:label "observation result quality" ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-core/AbstractObservationCharacteristics/resultQuality-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:qualityOf ;
+    skos:definition """
+  relation from an Observation or ObservationCollection to some information pertaining to the quality of the result
+  """@en ;
+    skos:note """
+  The quality of a result can be assessed following the procedures in the ISO 19157 series.
+  """,
+        "dqv:hasQualityMeasurement from the Data Quality Vocabulary is equivalent" ;
+    skos:scopeNote """
+  This instance-specific description complements the description of the observation Procedure, which provides information concerning the quality of all observations using this procedure. Multiple measures can be provided.
+  """@en .
+
+sosa:usedForExecutionHasResult a owl:ObjectProperty ;
+    rdfs:label "used for execution has result"@en ;
+    ns1:domainIncludes sosa:SamplingProcedure ;
+    ns1:rangeIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:isResultOfUsedProcedure ;
+    owl:propertyChainAxiom ( sosa:usedForExecution sosa:hasResult ) ;
+    skos:definition """
+  relation from a Procedure to a Sample or SampleCollection made by it
+  """@en .
+
+<http://www.w3.org/ns/ssn/obs/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Observation classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/obs/>,
+        <http://www.w3.org/ns/ssn/common/> .
+
+<http://www.w3.org/ns/ssn/sam/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Sampling classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/sam/>,
+        <http://www.w3.org/ns/ssn/common/> .
+
+sosa:actsOn a owl:ObjectProperty ;
+    rdfs:label "acts on"@en ;
+    ns1:domainIncludes sosa:Actuator ;
+    ns1:rangeIncludes sosa:Property ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subPropertyOf sosa:forProperty ;
+    owl:inverseOf sosa:isActedOnBy ;
+    skos:definition """
+  relation from an Actuator to a Property whose state may be changed by using it
+  """@en ;
+    skos:example "In the activity (Actuation) of automatically closing a window if the temperature in a room drops below 20 degrees Celsius, the property upon which the Actuator acts is the state of the window as it changes from being open to being closed. "@en .
+
+sosa:deployedOnPlatform a owl:ObjectProperty ;
+    rdfs:label "deployed on platform"@en ;
+    ns1:domainIncludes sosa:Deployment ;
+    ns1:rangeIncludes sosa:Platform ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Deployment/host-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subPropertyOf sosa:deployedAsset ;
+    owl:inverseOf sosa:inDeployment ;
+    skos:definition """
+  relation from a Deployment to a Platform on which Systems are hosted
+  """@en .
+
+sosa:deployedSystem a owl:ObjectProperty ;
+    rdfs:label "deployed system"@en ;
+    ns1:domainIncludes sosa:Deployment ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Deployment/observer-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subPropertyOf sosa:deployedAsset ;
+    owl:inverseOf [ rdfs:subPropertyOf sosa:hasDeployment ] ;
+    skos:definition """
+  relation from a Deployment to a deployed System
+  """@en .
+
+sosa:detects a owl:ObjectProperty ;
+    rdfs:label "detects"@en ;
+    ns1:domainIncludes sosa:Sensor ;
+    ns1:rangeIncludes sosa:Stimulus ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:isDetectedBy ;
+    skos:definition """
+  relation from a Sensor to the Stimulus that it detects
+
+  The Stimulus itself will be serving as a proxy for some Property.
+  """@en .
+
+sosa:hasProperty a owl:ObjectProperty ;
+    rdfs:label "has property"@en ;
+    ns1:domainIncludes sosa:FeatureOfInterest ;
+    ns1:rangeIncludes sosa:Property ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isPropertyOf ;
+    skos:definition """
+  relation from an entity to a Property of that entity
+  """@en .
+
+sosa:hasSample a owl:ObjectProperty ;
+    rdfs:label "has sample"@en ;
+    ns1:domainIncludes sosa:FeatureOfInterest ;
+    ns1:rangeIncludes sosa:Sample ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:isSampleOf ;
+    skos:definition """
+  relation from a FeatureOfInterest to the Sample or SampleCollection used to represent it
+  """@en .
+
+sosa:hasSubSystem a owl:ObjectProperty ;
+    rdfs:label "has subsystem"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isSubSystemOf ;
+    skos:definition """
+  relation from a System to its component parts
+  """@en .
+
+sosa:hosts a owl:ObjectProperty ;
+    rdfs:label "hosts"@en ;
+    ns1:domainIncludes sosa:Platform ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Platform,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isHostedBy ;
+    owl:propertyChainAxiom ( sosa:inDeployment sosa:deployedSystem ) ;
+    skos:definition """
+  relation from a Platform to an asset (System or Platform) hosted or mounted on it
+  """@en .
+
+sosa:isActedOnBy a owl:ObjectProperty ;
+    rdfs:label "is acted on by"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Actuator ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    owl:inverseOf sosa:actsOn ;
+    skos:definition """
+  relation from a Property to an Actuator that may change its state
+  """@en ;
+    skos:example "In the activity (Actuation) of automatically closing a window if the temperature in a room drops below 20 degrees Celsius, the property upon which the Actuator acts is the state of the window as it changes from being open to being closed. "@en .
+
+sosa:isDetectedBy a owl:ObjectProperty ;
+    rdfs:label "is detected by"@en ;
+    ns1:domainIncludes sosa:Stimulus ;
+    ns1:rangeIncludes sosa:Sensor ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:detects ;
+    skos:definition """
+  relation from a Stimulus to a Sensor that may detect it
+
+  The Stimulus itself will be serving as a proxy for some Property.
+  """@en .
+
+sosa:isFeatureOfInterestOf a owl:ObjectProperty ;
+    rdfs:label "is feature of interest of"@en ;
+    ns1:domainIncludes sosa:FeatureOfInterest ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasFeatureOfInterest ;
+    skos:definition """
+  relation from a FeatureOfInterest to an Execution, Execution Collection, or Deployment, operating on it
+
+  i.e., to an Observation about it, to an Actuation acting on it, to an act of Sampling that sampled it,
+  or to a Deployment for which it is the subject.
+"""@en .
+
+sosa:isHostedBy a owl:ObjectProperty ;
+    rdfs:label "is hosted by"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Platform,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Platform ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hosts ;
+    skos:definition """
+  relation from an asset (System or Platform), to a Platform that it is mounted on or hosted by
+  """@en .
+
+sosa:isObservedBy a owl:ObjectProperty ;
+    rdfs:label "is observed by"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Sensor ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/ObservableProperty/observer-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:observes ;
+    skos:definition """
+  relation from a Property to a Sensor that is able to observe it
+  """@en .
+
+sosa:isPropertyOf a owl:ObjectProperty ;
+    rdfs:label "is property of"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:FeatureOfInterest ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasProperty ;
+    skos:definition """
+  relation from a Property to a FeatureOfInterest that it is a quality of
+  """@en .
+
+sosa:isSubSystemOf a owl:ObjectProperty ;
+    rdfs:label "is subsystem of"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasSubSystem ;
+    skos:definition """
+  relation from a component System to a System that it belongs to
+  """@en .
+
+sosa:madeActuation a owl:ObjectProperty ;
+    rdfs:label "made actuation"@en ;
+    ns1:domainIncludes sosa:Actuator ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subPropertyOf sosa:madeExecution ;
+    owl:inverseOf sosa:madeByActuator ;
+    skos:definition """
+  relation from an Actuator to an Actuation or ActuationCollection it has made
+  """@en .
+
+sosa:madeObservation a owl:ObjectProperty ;
+    rdfs:label "made observation"@en ;
+    ns1:domainIncludes sosa:Sensor ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subPropertyOf sosa:madeExecution ;
+    owl:inverseOf sosa:madeBySensor ;
+    skos:definition """
+  relation from a Sensor to an Observation or ObservationCollection it has made
+  """@en .
+
+sosa:observes a owl:ObjectProperty ;
+    rdfs:label "observes"@en ;
+    ns1:domainIncludes sosa:Sensor ;
+    ns1:rangeIncludes sosa:Property ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observer/observableProperty-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subPropertyOf sosa:forProperty ;
+    owl:inverseOf sosa:isObservedBy ;
+    skos:definition """
+  relation from a Sensor to a Property that it is capable of sensing
+  """@en .
+
+sosa:originated a owl:ObjectProperty ;
+    rdfs:label "originated"@en ;
+    ns1:domainIncludes sosa:Stimulus ;
+    ns1:rangeIncludes sosa:Observation ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:wasOriginatedBy ;
+    skos:definition """
+  relation from a Stimulus to an Observation that was originated by it
+  """@en .
+
+sosa:propertyFor a owl:ObjectProperty ;
+    rdfs:label "property for"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Procedure,
+        sosa:Sensor,
+        sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:forProperty ;
+    skos:definition """
+  relation from a Property to some Procedure or System that acts on it or observes it
+  """@en ;
+    skos:example "For example, from a Sensor to the properties it can observe; from an Actuator to the properties it can act on; from a SystemCapability to the Property the capability is described for."@en .
+
+sosa:usedForExecution a owl:ObjectProperty ;
+    rdfs:label "used for execution"@en ;
+    ns1:domainIncludes sosa:Procedure ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:Execution,
+        sosa:Observation,
+        sosa:Sampling ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:usedProcedure ;
+    skos:definition """
+  relation from a Procedure to an Execution or ExecutionCollection made using it
+  """@en .
+
+sosa:wasActedOnBy a owl:ObjectProperty ;
+    rdfs:label "was acted on by"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    owl:inverseOf sosa:actsOnProperty ;
+    skos:definition """
+  relation from a Property to an Actuation that changed its state
+  """@en ;
+    skos:example "In the activity (Actuation) of automatically closing a window if the temperature in a room drops below 20 degrees Celsius, the property upon which the Actuator acts is the state of the window as it changes from being open to being closed. "@en .
+
+sosa:wasObservedBy a owl:ObjectProperty ;
+    rdfs:label "was observed by"@en ;
+    ns1:domainIncludes sosa:Property ;
+    ns1:rangeIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:observedProperty ;
+    skos:definition """
+  relation from a Property to an Observation that observed it
+  """@en .
+
+sosa:wasOriginatedBy a owl:ObjectProperty ;
+    rdfs:label "was originated by"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns1:rangeIncludes sosa:Stimulus ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:originated ;
+    skos:definition """
+  relation from an Observation to the Stimulus that originated it
+  """@en .
+
+sosa:actsOnProperty a owl:ObjectProperty ;
+    rdfs:label "acts on property"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection ;
+    ns1:rangeIncludes sosa:Property ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    owl:inverseOf sosa:wasActedOnBy ;
+    skos:definition """
+  relation from an Actuation to the Property it acted upon
+  """@en ;
+    skos:example "In the activity (Actuation) of automatically closing a window if the temperature in a room drops below 20 degrees Celsius, the property upon which the Actuator acts is the state of the window as it changes from being open to being closed. "@en .
+
+sosa:hasOriginalSample a owl:ObjectProperty ;
+    rdfs:label "has original sample"@en ;
+    ns1:domainIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    ns1:rangeIncludes sosa:Sample ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:isOriginalSampleOf ;
+    skos:definition """
+  relation from a Sample or SampleCollection to the initial Sample collected from the ultimate FeatureOfInterest
+  """@en .
+
+sosa:inDeployment a owl:ObjectProperty ;
+    rdfs:label "in deployment"@en ;
+    ns1:domainIncludes sosa:Platform ;
+    ns1:rangeIncludes sosa:Deployment ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Host/deployment-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subPropertyOf sosa:hasDeployment ;
+    owl:inverseOf sosa:deployedOnPlatform ;
+    skos:definition """
+  relation from a Platform to a Deployment
+  """@en ;
+    skos:example "For example, a relation between a buoy and a deployment of several Sensors."@en .
+
+sosa:isProxyFor a owl:ObjectProperty ;
+    rdfs:label "is proxy for"@en ;
+    ns1:domainIncludes sosa:Stimulus ;
+    ns1:rangeIncludes sosa:Property ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:hasProxy ;
+    skos:definition """
+  relation from a Stimulus to the Property for which it is serving as a proxy
+  """@en ;
+    skos:example "For example, the expansion of quicksilver is a stimulus that serves as a proxy for some temperature property. An increase or decrease in the velocity of spinning cups on a wind sensor is serving as a proxy for the wind speed."@en .
+
+sosa:isResultOfMadeBySampler a owl:ObjectProperty ;
+    rdfs:label "is a result of made by sampler"@en ;
+    ns1:domainIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    ns1:rangeIncludes sosa:Sampler ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:madeSamplingHasResult ;
+    owl:propertyChainAxiom ( sosa:isResultOf sosa:madeBySampler ) ;
+    skos:definition """
+  relation from a Sample or SampleCollection to the Sampler that made it
+  """@en .
+
+sosa:isResultOfUsedProcedure a owl:ObjectProperty ;
+    rdfs:label "is a result of used procedure"@en ;
+    ns1:domainIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    ns1:rangeIncludes sosa:SamplingProcedure ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:usedForExecutionHasResult ;
+    owl:propertyChainAxiom ( sosa:isResultOf sosa:usedProcedure ) ;
+    skos:definition """
+  relation from a Sample or SampleCollection to the Procedure (plan) used to make it
+  """@en .
+
+sosa:isSampleOfUltimateFOI a owl:ObjectProperty ;
+    rdfs:label "has sampled feature"@en ;
+    ns1:domainIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    ns1:rangeIncludes sosa:FeatureOfInterest ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sample/sampledFeature-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:featureHasUltimateSample ;
+    skos:definition """
+  relation from a Sample or SampleCollection to the ultimate FeatureOfInterest that it is intended to be representative of; i.e., the end of a chain of isSampleOf relations
+  """@en .
+
+sosa:madeByActuator a owl:ObjectProperty ;
+    rdfs:label "made by actuator"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection ;
+    ns1:rangeIncludes sosa:Actuator ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subPropertyOf sosa:madeBySystem ;
+    owl:inverseOf sosa:madeActuation ;
+    skos:definition """
+  relation from an Actuation or ActuationCollection to the Actuator that made it
+  """@en .
+
+sosa:madeBySensor a owl:ObjectProperty ;
+    rdfs:label "made by sensor or observer"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns1:rangeIncludes sosa:Sensor ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/observer-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subPropertyOf sosa:madeBySystem ;
+    owl:inverseOf sosa:madeObservation ;
+    skos:definition """
+  relation from an Observation or ObservationCollection to the Sensor that made it
+  """@en .
+
+sosa:madeSampling a owl:ObjectProperty ;
+    rdfs:label "made sampling"@en ;
+    ns1:domainIncludes sosa:Sampler ;
+    ns1:rangeIncludes sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampler/sampling-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subPropertyOf sosa:madeExecution ;
+    owl:inverseOf sosa:madeBySampler ;
+    skos:definition """
+  relation from a Sampler to the Sampling or SamplingCollection it has made
+  """@en .
+
+sosa:observedProperty a owl:ObjectProperty ;
+    rdfs:label "observed property"@en ;
+    ns1:domainIncludes sosa:Observation,
+        sosa:ObservationCollection ;
+    ns1:rangeIncludes sosa:Property ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/observedProperty-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    owl:inverseOf sosa:wasObservedBy ;
+    skos:definition """
+  relation from an Observation or ObservationCollection to the property that was observed
+  """@en ;
+    skos:note """
+  'observed property' covers the concepts referred to in [VIM] as 'measurand' (quantitative values) and 'examinand' (categorical and nominal values — [VIM4]), as well as complex and structured properties whose values may be represented as lists, vectors, arrays, rasters, geometries, etc. More specific terms are used in other contexts for related concepts, such as 'analyte' (chemistry) and 'determinand' (water quality).
+  """@en .
+
+<http://www.w3.org/ns/ssn/common/> a owl:Ontology ;
+    dcterms:created "2024-02-03"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description """Core classes and properties for the SSN Ontology.
+  This module adds RDFS and OWL axioms to the terms defined in SOSA Core
+  """@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "SSN Ontology - core module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/common/> .
+
+sosa:OperatingConditions a owl:Class ;
+    rdfs:label "Operating Conditions"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/systems/> ;
+    skos:definition """
+  Type of observation or observation collection that describe operating conditions of systems.
+  Sub-classes of this class explicit the desirability of the conditions.
+  Three such sub-classes are provided as a basic classification:
+  NormalOperatingConditions, SuboptimalOperatingConditions, and SurvivableConditions.
+  """@en .
+
+sosa:deployedAsset a owl:ObjectProperty ;
+    rdfs:label "deployed asset"@en ;
+    ns1:domainIncludes sosa:Deployment ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Platform,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasDeployment ;
+    skos:definition """
+  relation from a Deployment to an asset (System or Platform)
+  """@en .
+
+sosa:hasDeployment a owl:ObjectProperty ;
+    rdfs:label "has deployment"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Platform,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Deployment ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observer/deployment-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:deployedAsset ;
+    skos:definition """
+  relation from a System or Platform to a Deployment in which it is deployed
+  """@en .
+
+sosa:isSampleOf a owl:ObjectProperty ;
+    rdfs:label "is sample of"@en ;
+    ns1:domainIncludes sosa:Sample,
+        sosa:SampleCollection ;
+    ns1:rangeIncludes sosa:FeatureOfInterest ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sample/sampledFeature-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    owl:inverseOf sosa:hasSample ;
+    skos:definition """
+  relation from a Sample or SampleCollection to the FeatureOfInterest that it is intended to represent
+  """@en .
+
+sosa:madeBySampler a owl:ObjectProperty ;
+    rdfs:label "made by sampler"@en ;
+    ns1:domainIncludes sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:Sampler ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/sampler-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subPropertyOf sosa:madeBySystem ;
+    owl:inverseOf sosa:madeSampling ;
+    skos:definition """
+  relation from an act of Sampling to the Sampler that made it
+  """@en .
+
+<http://www.w3.org/ns/sosa/oms/PreparationProcedure> a owl:Class ;
+    rdfs:label "Preparation Procedure"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationProcedure> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+            owl:onProperty sosa:implementedBy ],
+        sosa:Procedure ;
+    skos:definition "[ISO 19156:2023] A PreparationProcedure shall be defined as the description of preparation steps performed on a Sample",
+        """
+  A workflow, protocol, plan, algorithm, or computational method specifying a step in preparing a Sample. 
+  A Preparation Procedure is re-usable, and might be involved in many preparations. 
+  It explains the steps to be carried out to arrive at reproducible results.
+  """@en .
+
+sosa:hasResult a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "has result"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:Sample ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/result-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/sample-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isResultOf ;
+    skos:definition """
+  relation from an Execution to its result
+
+  In the case of an Actuation, the result may be the value of the Property following the execution of the Procedure by the Actuator. 
+
+  In the case of an Observation, the result is the value of the Property produced by the execution of the Procedure by the Sensor. 
+  
+  In the case of a Sampling, the result is the Sample produced by the execution of the Procedure by the Sampler. 
+
+  An Execution has a single result, therefore sosa:hasResult is Functional.
+  """@en ;
+    skos:note "The result value MUST be consistent with the hasOutput definition from the corresponding Procedure"@en .
+
+sosa:hasUltimateFeatureOfInterest a owl:ObjectProperty ;
+    rdfs:label "has ultimate feature of interest"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:FeatureOfInterest ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-core/AbstractObservationCharacteristics/uFoI-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    skos:definition """
+  relation from a Deployment or Execution to its ultimate subject entity
+
+  i.e., from an Actuation to the ultimate entity whose property was modified;
+  from an Observation to the ultimate entity whose property was observed;
+  from an act of Sampling to the ultimate entity that was sampled;
+  or from a Deployment to its ultimate target
+  """@en ;
+    skos:note """should match a property chain something like this but with sosa:isSampleOf*
+      owl:propertyChainAxiom ( sosa:hasFeatureOfInterest sosa:isSampleOf )""" ;
+    skos:scopeNote "This is useful when the proximate feature of interest is a sample of the ultimate feature of interest, directly or transitively." .
+
+sosa:implements a owl:ObjectProperty ;
+    rdfs:label "implements"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:ActuatingProcedure,
+        sosa:ObservingProcedure,
+        sosa:Procedure,
+        sosa:SamplingProcedure ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observer/observingProcedure-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/samplingProcedure-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:implementedBy ;
+    skos:definition """
+  relation from a System to the Procedure that it is capable of executing
+  """@en ;
+    skos:example "For example, the relationship between a sensor and the scientific measuring Procedure via which it senses."@en .
+
+sosa:madeExecution a owl:ObjectProperty ;
+    rdfs:label "made execution"@en ;
+    ns1:domainIncludes sosa:System ;
+    ns1:rangeIncludes sosa:Execution,
+        sosa:ExecutionCollection ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:madeBySystem ;
+    skos:definition """
+  relation from a System to an Execution or ExecutionCollection that it has made
+  """@en ;
+    skos:scopeNote """
+  madeExecution generalizes the madeActuation, madeObservation, and madeSampling properties. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+
+  madeExecution MUST be considered to be abstract, so SHOULD NOT appear in data instances. 
+  Applications can use concrete sub-properties of madeExecution.
+  """@en .
+
+sosa:ActuatingProcedure a owl:Class ;
+    rdfs:label "Actuating Procedure"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Actuator ;
+            owl:onProperty sosa:implementedBy ],
+        sosa:Procedure ;
+    skos:definition """
+  workflow, protocol, plan, algorithm, or computational method specifying how to make an Actuation
+  
+  An Actuating Procedure is re-usable, and might be applied in many Actuations.
+  It explains the steps to be carried out to arrive at reproducible results.
+  """@en .
+
+sosa:ObservingProcedure a owl:Class ;
+    rdfs:label "Observing Procedure"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/ObservingProcedure> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sensor ;
+            owl:onProperty sosa:implementedBy ],
+        sosa:Procedure ;
+    skos:definition "[ISO 19156:2023] An ObservingProcedure shall be defined as the description of steps performed in order to determine the value of an observableProperty by an Observer.",
+        """
+  workflow, protocol, plan, algorithm, or computational method specifying how to make an Observation
+
+  An Observing Procedure is re-usable, and might be involved in many Observations. 
+  It explains the steps to be carried out to arrive at reproducible results.
+  """@en ;
+    skos:example "A workflow, protocol, plan, algorithm, or computational method specifying how to make an observation; the description of the process used by an observer. This could be a chemical analysis method, a protocol for measuring an object, or even a checklist used by a human observer during a biodiversity campaign. The Procedure could further describe the algorithms behind simulators or models used to generate a result from other inputs."@en,
+        "[ISO 19156:2023] An instance of Procedure is a description of the process used by an observer. This could be a chemical analysis method, a protocol for measuring an object, or even a checklist used by a human observer during a biodiversity campaign. Procedure could further describe the algorithms behind simulators or models used to generate a result from other inputs."@en ;
+    skos:note "[ISO 19156:2023] An ObservingProcedure shall be defined as the description of steps performed in order to determine the value of an observableProperty by an Observer."@en .
+
+sosa:forProperty a owl:ObjectProperty ;
+    rdfs:label "for property"@en ;
+    ns1:domainIncludes sosa:Actuator,
+        sosa:Procedure,
+        sosa:Sensor,
+        sosa:System ;
+    ns1:rangeIncludes sosa:Property ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:propertyFor ;
+    skos:definition """
+  relation from some Procedure or System to a Property it acts on or observes
+  """@en ;
+    skos:example "For example, from a Sensor to the properties it can observe; from an Actuator to the properties it can act on; from a SystemCapability to the Property the capability is described for."@en .
+
+sosa:implementedBy a owl:ObjectProperty ;
+    rdfs:label "implemented by"@en ;
+    ns1:domainIncludes sosa:Procedure ;
+    ns1:rangeIncludes sosa:Actuator,
+        sosa:Sampler,
+        sosa:Sensor,
+        sosa:System ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/ObservingProcedure/observer-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationStep/processingDetails-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/SamplingProcedure/sampler-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:implements ;
+    skos:definition """
+  relation from a Procedure to a System that is capable of executing it
+  """@en ;
+    skos:example "For example, the relationship between a scientific measuring Procedure and a sensor that senses via that Procedure."@en .
+
+sosa:isResultOf a owl:ObjectProperty ;
+    rdfs:label "is result of"@en ;
+    ns1:domainIncludes sosa:Sample ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:Sampling ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/gen/relatedObservation-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:hasResult ;
+    skos:definition """
+  relation from a result to the Execution that created or caused it
+  """@en .
+
+sosa:madeBySystem a owl:ObjectProperty ;
+    rdfs:label "made by system"@en ;
+    ns1:domainIncludes sosa:Execution,
+        sosa:ExecutionCollection ;
+    ns1:rangeIncludes sosa:System ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:madeExecution ;
+    skos:definition """
+  relation from an Execution to the System that made it
+  """@en ;
+    skos:scopeNote """
+  madeBySystem generalizes the madeByActuator, madeBySensor, and madeBySampler properties. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+
+  madeBySystem MUST be considered to be abstract, so SHOULD NOT appear in data instances. 
+  Applications can use concrete sub-properties of madeBySystem.
+  """@en .
+
+<http://www.w3.org/ns/sosa/oms/PreparationStep> a owl:Class ;
+    rdfs:label "Preparation Step"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/PreparationStep> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/oms/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <http://www.w3.org/ns/sosa/oms/PreparationProcedure> ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onProperty sosa:preparedSample ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:preparedSample ] ;
+    skos:definition "A PreparationStep is an individual step pertaining to a Sample PreparationProcedure."@en ;
+    skos:example "???"@en .
+
+sosa:hasMember a owl:ObjectProperty ;
+    rdfs:label "has member of collection" ;
+    ns1:domainIncludes sosa:ActuationCollection,
+        sosa:ExecutionCollection,
+        sosa:ObservationCollection,
+        sosa:SampleCollection,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sample,
+        sosa:SampleCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-basic/ObservationCollection/member-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-basic/SampleCollection/member-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isMemberOf ;
+    skos:definition """
+  link from a Collection to an Execution or Sample or Collection of these that is part of it
+  """ ;
+    skos:editorialNote "Note that there is a single `member` property. OWL or SHACL constraints may limit the range depending on the context of different collection types" ;
+    skos:scopeNote "rules for the consistency of values of properties of collections and properties of their members are given for each collection type" .
+
+<http://www.w3.org/ns/sosa/systems/> a <http://purl.org/vocommons/voaf#Vocabulary>,
+        owl:Ontology ;
+    dcterms:created "2017-05-14"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatio-temporal Data on the Web Working Group"@en ] ;
+    dcterms:description "The System Capabilities Module imports SOSA and adds classes and properties required for the description of the operating conditions and capabilities of systems, particularly Sensors and Actuators."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:modified "2025-06-24"^^xsd:date ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Ontology of operating conditions and capabilities of systems"@en ;
+    vann:preferredNamespacePrefix "sosa" ;
+    vann:preferredNamespaceUri "http://www.w3.org/ns/sosa/" ;
+    rdfs:comment "Please report any errors to the W3C Spatio-temporal Data on the Web Working Group via the SDW WG Public List public-sdw-wg@w3.org"@en ;
+    rdfs:seeAlso <https://www.w3.org/2015/spatial/wiki/Semantic_Sensor_Network_Ontology> ;
+    owl:imports sosa: .
+
+sosa:Stimulus a owl:Class ;
+    rdfs:label "Stimulus"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Observation sosa:ObservationCollection ) ] ;
+            owl:onProperty sosa:originated ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sensor ;
+            owl:onProperty sosa:isDetectedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:isProxyFor ] ;
+    skos:definition """
+  event in the real world that triggers a Sensor
+  """@en ;
+    skos:note "The properties associated to the Stimulus may be different to the eventual observed Property. It is the event, not the object, that triggers the Sensor."@en .
+
+sosa:SamplingProcedure a owl:Class ;
+    rdfs:label "Sampling Procedure"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/SamplingProcedure> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sampler ;
+            owl:onProperty sosa:implementedBy ],
+        sosa:Procedure ;
+    skos:definition "[ISO 19156:2023] A SamplingProcedure shall be defined as the description of steps performed by a Sampler in order to extract a Sample from its sampledFeature in the frame of a Sampling.",
+        """
+  workflow, protocol, plan, algorithm, or computational method specifying how to make a Sampling
+
+  A Sampling Procedure is re-usable, and might be involved in many Samplings. 
+  It explains the steps to be carried out to arrive at reproducible results.
+  """@en ;
+    skos:example """
+spatial distribution of locations where to collect a sample (e.g., river segment)
+instrument (or mode of use thereof) required to collect a sample (e.g., fish net, electric stunner)
+field work instructions (e.g., dig four boreholes in each cardinal direction 2 metre way from the centre of the site; collect soil material from the 15-30 cm depth and mix it in a single bag)
+  """@en ;
+    skos:note """
+[ISO 19156:2023] A SamplingProcedure shall be defined as the description of steps performed by a Sampler in order to extract a Sample from its sampledFeature in the frame of a Sampling.
+  """@en .
+
+sosa:hasFeatureOfInterest a owl:ObjectProperty ;
+    rdfs:label "has feature of interest"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Deployment,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:FeatureOfInterest ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-core/AbstractObservationCharacteristics/pFoI-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/featureOfInterest-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/featureOfInterest-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:isFeatureOfInterestOf ;
+    skos:definition """
+  relation from an Execution or Deployment to its subject entity
+
+  i.e., from an Actuation to the entity whose property was modified;
+  from an Observation to the entity whose quality was observed;
+  from an act of Sampling to the entity that was sampled;
+  or from a Deployment to its target
+  """@en ;
+    skos:example "For example, in an Observation of the weight of a person, the FeatureOfInterest is the person and the property is its weight."@en ;
+    skos:scopeNote "This is the _proximate_ feature of interest, which may be a proxy entity such as a sample of the _ultimate_ feature of interest. Use `hasUltimateFeatureOfInterest` if the intention is to link to the _ultimate_ feature of interest. " .
+
+<http://www.w3.org/ns/sosa/act/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Actuation classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/common/> .
+
+sosa:usedProcedure a owl:ObjectProperty ;
+    rdfs:label "used procedure"@en ;
+    ns1:domainIncludes sosa:Actuation,
+        sosa:ActuationCollection,
+        sosa:Execution,
+        sosa:ExecutionCollection,
+        sosa:Observation,
+        sosa:ObservationCollection,
+        sosa:Sampling,
+        sosa:SamplingCollection ;
+    ns1:rangeIncludes sosa:ActuatingProcedure,
+        sosa:ObservingProcedure,
+        sosa:Procedure,
+        sosa:SamplingProcedure ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation/observingProcedure-sem>,
+        <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling/samplingProcedure-sem> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    owl:inverseOf sosa:usedForExecution ;
+    skos:definition """
+  relation from an Execution or ExecutionCollection to a Procedure used to make it
+  """@en .
+
+<http://www.w3.org/ns/sosa/oms/> a owl:Ontology ;
+    dcterms:created "2023-10-07"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "This ontology is based on the SOSA Ontology by the W3C/OGC Spatial Data on the Web Working Group, supplemented by some classes and properties required to implement ISO 19156:2023 ."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:source <https://docs.ogc.org/as/20-082r4/20-082r4.html> ;
+    dcterms:title "OMS Ontology - based on (SOSA) Ontology"@en ;
+    rdfs:comment "The original source of each resource is indicated by the rdfs:isDefinedBy property" ;
+    owl:imports <http://www.w3.org/ns/sosa/obs/>,
+        <http://www.w3.org/ns/sosa/sam/> .
+
+sosa:Platform a owl:Class ;
+    rdfs:label "Platform or Host"@en ;
+    dcterms:source <https://inspire.ec.europa.eu/id/document/tg/ef> ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Host> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:System sosa:Platform ) ] ;
+            owl:onProperty sosa:hosts ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Deployment ;
+            owl:onProperty sosa:inDeployment ] ;
+    skos:altLabel "Host" ;
+    skos:definition """
+  entity that hosts other entities, particularly Systems and other Platforms
+  """@en ;
+    skos:example """A post, buoy, vehicle, ship, aircraft, satellite, cell-phone, human or animal may act as platforms for (technical or biological) sensors or actuators.
+  An environmental monitoring facility. 
+  A platform that hosts a set of sensors. 
+  A team performing a survey, where each team member would be modeled as an Observer."""@en ;
+    skos:prefLabel "Platform" ;
+    skos:scopeNote "The INSPIRE 'Environmental Monitoring Facility' may be implemented using SOSA by the OWL/RDFS class 'Platform'" .
+
+sosa:Deployment a owl:Class ;
+    rdfs:label "Deployment"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Deployment> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Platform sosa:System ) ] ;
+            owl:onProperty sosa:deployedAsset ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Platform ;
+            owl:onProperty sosa:deployedOnPlatform ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:deployedSystem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ] ;
+    skos:definition """
+  arrangement of one or more assets (Systems or Platforms) to execute Procedures with respect to designated features of interest.
+  """@en ;
+    skos:example "A temperature Sensor deployed on a wall, a network of Sensors deployed for an Observation campaign."@en ;
+    skos:note """
+  A Deployment will usually be for a specified time interval. 
+  It MAY involve Platforms, or Systems, or both. 
+  A Deployment can be used quite flexibly to describe the use of systems, and platforms that host systems, with respect to a feature of interest. 
+  """@en .
+
+sosa:SampleCollection a owl:Class ;
+    rdfs:label "Sample Collection"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-basic/SampleCollection> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Sample sosa:SampleCollection ) ] ;
+            owl:onProperty sosa:hasMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Sampling sosa:SamplingCollection ) ] ;
+            owl:onProperty sosa:isResultOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:isSampleOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:hasOriginalSample ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:isSampleOfUltimateFOI ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sampler ;
+            owl:onProperty sosa:isResultOfMadeBySampler ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:SamplingProcedure ;
+            owl:onProperty sosa:isResultOfUsedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Sample sosa:SampleCollection ) ] ;
+            owl:onProperty sosa:hasMember ] ;
+    skos:definition """
+  set of one or more Samples or SampleCollections; collections may be nested.
+
+  All Sample properties may appear in a Sample Collection, including: 
+  hasOriginalSample , isSampleOfUltimateFOI , isSampleOf , isResultOfUsedProcedure , isResultOfMadeBySampler . 
+  If they are present, the value of these properties summarize the values of the matching properties of the member samples, where membership is either direct or transitive through one or more member sample collections. 
+
+  The following consistency rules apply with respect to the Sample properties listed above: 
+  
+  1. Where an individual Sample Collection omits a property, a member Sample (direct or transitive) MAY have any value for that property.
+
+  2. Where an individual Sample Collection has a single value for a property, each member Sample (direct or transitive) MUST have that same value for the property - i.e., the collection is homogeneous in that property.  That property MAY be omitted in any member Sample or Sample Collection.
+
+  3. Where an individual Sample Collection has more than one value for a property, each member Sample (direct or transitive) MUST have a value for that property that matches one of the values for the property in the collection. 
+  
+  4. Where an individual Sample Collection has a value for a property that is a range or interval, each member Sample (direct or transitive) MUST have a value for that property that either matches or falls within that range or interval.
+
+  5. Where an individual Sample Collection has more than one value for a property that is a range or interval, each member Sample (direct or transitive) MUST have a value for that property that either matches or falls within one of those ranges or intervals.
+  """@en ;
+    skos:note """
+  The members of a collection do not necessarily share a common value for any property. 
+  """ .
+
+sosa:Procedure a owl:Class ;
+    rdfs:label "Procedure"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Procedure> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:implementedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:forProperty ] ;
+    skos:definition """
+  workflow, protocol, plan, algorithm, or computational method specifying how to make an Execution
+
+  A Procedure is re-usable, and might be applied in many Actuations, Observations, or Samplings.
+  It explains the steps to be carried out to arrive at reproducible results.
+  """@en ;
+    skos:example "The measured wind speed differs depending on the height of the sensor above the surface, e.g., due to friction. Consequently, procedures for measuring wind speed define a standard height for anemometers above ground, typically 10m for meteorological measures and 2m in Agrometeorology. This definition of height, sensor placement, and so forth are defined by the Procedure."@en ;
+    skos:scopeNote """
+  Procedure generalizes the ActuationProcedure, ObservationProcedure, and SamplingProcedure classes. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+  """@en .
+
+sosa:SamplingCollection a owl:Class ;
+    rdfs:label "Sampling Collection"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sampler ;
+            owl:onProperty sosa:madeBySampler ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:SamplingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:hasResult ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Sampling sosa:SamplingCollection ) ] ;
+            owl:onProperty sosa:hasMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Sampling sosa:SamplingCollection ) ] ;
+            owl:onProperty sosa:hasMember ],
+        sosa:ExecutionCollection ;
+    skos:definition """
+  set of one or more Samplings or SamplingCollections; collections may be nested
+
+  All Sampling properties may appear in a Sampling Collection, including: 
+  hasFeatureOfInterest , hasUltimateFeatureOfInterest , madeBySampler , usedProcedure , hasInputValue , startTime , phenomenonTime , resultTime , hasResult . 
+  If they are present, the value of these properties summarize the values of the matching properties of the member samplings, where membership is either direct or transitive through one or more member sampling collections. 
+  The following consistency rules apply with respect to the Sampling properties listed above: 
+  
+  1. Where an individual Sampling Collection omits a property, a member Sampling (direct or transitive) MAY have any value for that property.
+
+  2. Where an individual Sampling Collection has a single value for a property, each member Sampling (direct or transitive) MUST have that same value for the property - i.e., the collection is homogeneous in that property.  That property MAY then be omitted in any member Sampling or Sampling Collection.
+
+  3. Where an individual Sampling Collection has more than one value for a property, each member Sampling (direct or transitive) MUST have a value for that property that matches one of the values for the property in the collection. 
+  
+  4. Where an individual Sampling Collection has a value for a property that is a range or interval, each member Sampling (direct or transitive) MUST have a value for that property that matches or falls within that range or interval.
+
+  5. Where an individual Sampling Collection has more than one value for a property that is a range or interval, each member Sampling (direct or transitive) MUST have a value for that property that either matches or falls within one of those ranges or intervals.
+  """@en ;
+    skos:note "The members of a collection do not necessarily share a common value for any property."@en .
+
+sosa:Sampler a owl:Class ;
+    rdfs:label "Sampler"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampler> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:SamplingProcedure ;
+            owl:onProperty sosa:implements ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Sampling sosa:SamplingCollection ) ] ;
+            owl:onProperty sosa:madeSampling ],
+        sosa:System ;
+    skos:definition """
+  System that implements a SamplingProcedure to generate a Sample
+  """@en ;
+    skos:example "A ball mill, diamond drill, hammer, hypodermic syringe and needle, image Sensor, or a soil auger can all act as Samplers. Sometimes, however, the distinction between the Sampler and the Sensor is not evident, if they are packaged as a unit."@en ;
+    skos:note "A Sampler need not be a physical device."@en .
+
+<http://www.w3.org/ns/sosa/obs/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Observation classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/common/> .
+
+<http://www.w3.org/ns/sosa/sam/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Sampling classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - actuation module"@en ;
+    owl:imports <http://www.w3.org/ns/sosa/common/> .
+
+sosa:Actuation a owl:Class ;
+    rdfs:label "Actuation"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ActuatingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Actuator ;
+            owl:onProperty sosa:madeByActuator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:actsOnProperty ],
+        sosa:Execution ;
+    skos:definition """
+  act of carrying out an ActuatingProcedure using an Actuator to change the value of an actuatable Property of a FeatureOfInterest
+  
+  In this context hasResult may indicate the value of the Property at the completion of the Actuation
+  """@en ;
+    skos:example "The activity of automatically closing a window if the temperature in a room drops below 20 degree Celsius. The activity is the Actuation and the device that closes the window is the Actuator. The Procedure is the rule, plan, or specification that defines the conditions that triggers the Actuation, here a drop in temperature. "@en ;
+    skos:note "relatedObservation SHOULD be used to link to an associated Observation or ObservationCollection that monitors the actuated property to verify that the result value has been obtained. "@en ;
+    skos:scopeNote """
+  An Actuation primarily concerns a single Property of a single FeatureOfInterest. 
+  Changes to multiple properties, or other combinations of Actuations, may be described in an ActuationCollection.
+    
+  Alternatively, applications may choose to encapsulate complexity by defining a complex property with multiple individual components, and a corresponding complex result (e.g., a vector). 
+  This approach is not prohibited by the SSN Ontology, but the details are beyond the scope of SSN.
+  """@en .
+
+sosa:ActuationCollection a owl:Class ;
+    rdfs:label "Actuation Collection"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Actuator ;
+            owl:onProperty sosa:madeByActuator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:actsOnProperty ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ActuatingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Actuation sosa:ActuationCollection ) ] ;
+            owl:onProperty sosa:hasMember ],
+        sosa:ExecutionCollection ;
+    skos:definition """
+  set of one or more Actuations or ActuationCollections; collections may be nested
+
+  All Actuation properties may appear in an Actuation Collection, including:
+  hasFeatureOfInterest , usedProcedure , madeByActuator , actsOnProperty , endTime ,  hasResult , hasSimpleResult . 
+  If they are present, the value of these properties summarize the values of the matching properties of the member actuations, where membership is either direct or transitive through one or more member actuation collections. 
+  The following consistency rules apply with respect to the Actuation properties: 
+  
+  1. Where an individual Actuation Collection omits a property, a member Actuation (direct or transitive) MAY have any value for that property.
+
+  2. Where an individual Actuation Collection has a single value for a property, each member Actuation (direct or transitive) MUST have that same value for the property - i.e., the collection is homogeneous in that property.  That property MAY then be omitted in any member Actuation or Actuation Collection.
+
+  3. Where an individual Actuation Collection has more than one value for a property, each member Actuation (direct or transitive) MUST have a value for that property that matches one of the values for the property in the collection. 
+  
+  4. Where an individual Actuation Collection has a value for a property that is a range or interval, each member Actuation (direct or transitive) MUST have a value for that property that matches or falls within that range or interval.
+
+  5. Where an individual Actuation Collection has more than one value for a property that is a range or interval, each member Actuation (direct or transitive) MUST have a value for that property that either matches or falls within one of those ranges or intervals.
+  """@en ;
+    skos:note "The members of a collection do not necessarily share a common value for any property. "@en .
+
+sosa:Actuator a owl:Class ;
+    rdfs:label "Actuator"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/act/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:actsOn ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ActuatingProcedure ;
+            owl:onProperty sosa:implements ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Actuation sosa:ActuationCollection ) ] ;
+            owl:onProperty sosa:madeActuation ],
+        sosa:System ;
+    skos:definition """
+  System that implements an ActuatingProcedure to change the value of an actuatable Property
+
+  This may be a device, a piece of infrastructure, an agent (including humans), or software (simulation)."""@en ;
+    skos:example "A window actuator for automatic window control, i.e., opening or closing the window."@en .
+
+sosa:Property a owl:Class ;
+    rdfs:label "Property"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/ObservableProperty> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sensor ;
+            owl:onProperty sosa:isObservedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Observation sosa:ObservationCollection ) ] ;
+            owl:onProperty sosa:wasObservedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Stimulus ;
+            owl:onProperty [ owl:inverseOf sosa:isProxyFor ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Actuator ;
+            owl:onProperty sosa:isActedOnBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Actuation sosa:ActuationCollection ) ] ;
+            owl:onProperty sosa:wasActedOnBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:isPropertyOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Procedure ;
+            owl:onProperty sosa:hasProcedure ] ;
+    skos:definition """
+  identifiable quality of features of interest that can be observed or acted upon
+
+  A property can apply to different features of interest.
+
+  """@en ;
+    skos:example "Cars (a feature type) all have a characteristic colour, where 'colour' is a property."@en ;
+    skos:note "Concepts from existing code lists, vocabularies, and taxonomies, may be used as instances of Property"@en .
+
+sosa:Sampling a owl:Class ;
+    rdfs:label "Sampling"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sampling> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sampler ;
+            owl:onProperty sosa:madeBySampler ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:SamplingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:hasResult ],
+        sosa:Execution ;
+    skos:definition """
+  act of carrying out a SamplingProcedure using a Sampler to create one or more Samples of a FeatureOfInterest
+  """@en ;
+    skos:example "Crushing a rock sample in a ball mill."@en,
+        "Digging a pit through a soil sequence."@en,
+        "Dividing a field site into quadrants."@en,
+        "Drawing blood from a patient."@en,
+        "Drilling an observation well."@en,
+        "Establishing a station for environmental monitoring."@en,
+        "Registering an image of the landscape."@en,
+        "Selecting a subset of a population."@en,
+        "Sieving a powder to separate the subset finer than 100-mesh."@en,
+        "Splitting a piece of drill-core to create two new samples."@en,
+        "Taking a diamond-drill core from a rock outcrop."@en .
+
+sosa:Sensor a owl:Class ;
+    rdfs:label "Sensor or Observer"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observer> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Stimulus ;
+            owl:onProperty sosa:detects ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:observes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ObservingProcedure ;
+            owl:onProperty sosa:implements ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Observation sosa:ObservationCollection ) ] ;
+            owl:onProperty sosa:madeObservation ],
+        sosa:System ;
+    skos:altLabel "Observer"@en ;
+    skos:definition """
+  System that implements an ObservingProcedure to determine the value of an observable Property
+
+  This may be a device, a piece of infrastructure, an agent (including humans), or software (simulation).
+
+  A Sensor responds to a stimulus, e.g., a change in the environment, or input data composed from the results of prior Observations.
+  """@en ;
+    skos:example "Accelerometers, gyroscopes, barometers, magnetometers, and so forth are Sensors that are typically mounted on a modern smartphone (which acts as Host or Platform). Other examples of Sensors include the human eyes."@en ;
+    skos:note "The UML class 'Observer' from ISO 19156:2023 is implemented in SOSA by the OWL/RDFS class 'Sensor'. The class name 'Sensor' is preferred for backward compatibility with existing SOSA deployments. " ;
+    skos:prefLabel "Sensor"@en .
+
+sosa:Execution a owl:Class ;
+    rdfs:label "Execution of a Procedure"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:madeBySystem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Procedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:onProperty sosa:hasFeatureOfInterest ;
+            owl:someValuesFrom sosa:FeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasUltimateFeatureOfInterest ] ;
+    skos:definition """
+  act of carrying out a Procedure using a System
+  """@en ;
+    skos:scopeNote """
+  Execution generalizes the Actuation, Observation, and Sampling classes. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+
+  Execution MUST be considered to be abstract, so any individual Execution SHOULD be declared to be an instance of one of the concrete sub-classes, and not of the Execution class.
+  """@en .
+
+sosa:ExecutionCollection a owl:Class ;
+    rdfs:label "Execution Collection"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:madeBySystem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Procedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasUltimateFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Execution sosa:ExecutionCollection ) ] ;
+            owl:onProperty sosa:hasMember ] ;
+    skos:definition """
+  set of one or more Executions or ExecutionCollections; collections may be nested
+
+  All Execution properties may appear in an Execution Collection, including: 
+  hasFeatureOfInterest , usedProcedure , madeBySystem , endTime, resultTime , startTime . 
+  If they are present, the value of these properties summarize the values of the matching properties of the member Executions, where membership is either direct or transitive through one or more member execution collections.
+
+  The following consistency rules apply with respect to the execution properties listed above: 
+  
+  1. Where an individual Execution Collection omits a property, a member Execution (direct or transitive) MAY have any value for that property.
+
+  2. Where an individual Execution Collection has a single value for a property, each member Execution (direct or transitive) MUST have that same value for the property - i.e., the collection is homogeneous in that property.  That property MAY then be omitted in any member Execution or Execution Collection.
+
+  3. Where an individual Execution Collection has more than one value for a property, each member Execution (direct or transitive) MUST have a value for that property that matches one of the values for the property in the collection. 
+  
+  4. Where an individual Execution Collection has a value for a property that is a range or interval, each member Execution (direct or transitive) MUST have a value for that property that matches or falls within that range or interval.
+
+  5. Where an individual Execution Collection has more than one value for a property that is a range or interval, each member Execution (direct or transitive) MUST have a value for that property that either matches or falls within one of those ranges or intervals.
+  """@en ;
+    skos:note "The members of a collection do not necessarily share a common value for any property. "@en ;
+    skos:scopeNote """
+  Execution Collection generalizes the Actuation Collection, Observation Collection, and Sampling Collection classes. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+
+  Execution Collection MUST be considered to be abstract, so any individual Execution Collection SHOULD be declared to be an instance of one of the concrete sub-classes, and not of the Execution Collection class.
+  """@en .
+
+sosa:FeatureOfInterest a owl:Class ;
+    rdfs:label "Feature Of Interest"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sosa:isFeatureOfInterestOf ;
+            owl:someValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Deployment sosa:Execution sosa:ExecutionCollection ) ] ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:hasProperty ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:hasSample ] ;
+    skos:definition """
+  entity that is the target of an Execution or Deployment
+
+  i.e., whose property is being estimated by an Observation, 
+  or whose property is being manipulated by an Actuator, 
+  or which is being sampled or transformed in an act of Sampling, 
+  or which is the target of Executions planned as part of a Deployment.
+  """@en ;
+    skos:example "When measuring the height of a tree, the height is the observed Property, 20m may be the Result of the Observation, and the tree is the FeatureOfInterest. A window is a FeatureOfInterest for an automatic window control Actuation."@en .
+
+sosa:System a owl:Class ;
+    rdfs:label "System"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/common/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Platform ;
+            owl:onProperty sosa:isHostedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Procedure ;
+            owl:onProperty sosa:implements ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:forProperty ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:hasSubSystem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:System ;
+            owl:onProperty sosa:isSubSystemOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Deployment ;
+            owl:onProperty sosa:hasDeployment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Execution sosa:ExecutionCollection ) ] ;
+            owl:onProperty sosa:madeExecution ] ;
+    skos:definition """
+  entity that implements a Procedure in the context of an Execution
+  """@en ;
+    skos:note """
+  This may be a device, a piece of infrastructure, an agent (including humans), or software (simulation).
+
+  Different Systems can implement the same (reusable) Procedure for different Executions.
+
+  A System may have components, its sub-systems, which are other systems.
+  """@en ;
+    skos:scopeNote """
+  Specific system types may be implemented as sub-classes of this class or its sub-classes.
+  Their descriptions may capture the properties and characteristics of a whole class of systems, corresponding with the information typically found in a data-sheet.
+
+  Individual system instances are members of this class or its sub-classes. 
+  """@en,
+        """
+  System generalizes the Actuator, Sensor, and Sampler classes. 
+  It is included in the ontology to support the definition of a common pattern for executions and their properties. 
+
+  System MUST be considered to be abstract, so any individual System SHOULD be declared to be an instance of a concrete sub-class, and not of the System class.
+  """@en,
+        """
+  The association of a System (Actuator, Sensor, and Sampler) with a FeatureOfInterest is usually in the context of an Execution or a Deployment. 
+
+  A System can be hosted by a Platform. 
+
+  A System can be deployed for a specified time interval as part of a Deployment.
+  """@en .
+
+sosa:Sample a owl:Class ;
+    rdfs:label "Sample"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/sam-cpt/Sample> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/sam/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <http://www.w3.org/ns/sosa/oms/PreparationStep> ;
+            owl:onProperty <http://www.w3.org/ns/sosa/oms/hasPreparationStep> ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sampler ;
+            owl:onProperty sosa:isResultOfMadeBySampler ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:SamplingProcedure ;
+            owl:onProperty sosa:isResultOfUsedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( sosa:Sampling sosa:SamplingCollection ) ] ;
+            owl:onProperty sosa:isResultOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:isSampleOf ],
+        [ a owl:Restriction ;
+            owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onProperty sosa:isSampleOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sample ;
+            owl:onProperty sosa:hasOriginalSample ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:isSampleOfUltimateFOI ] ;
+    skos:definition """
+  piece or subset that is intended to be representative of a FeatureOfInterest
+  """@en ;
+    skos:example "A 'station' is a spatial sample, in the form of an identifiable locality where a sensor system or Procedure may be deployed and an observation made. In the context of the observation model, it connotes the 'world in the vicinity of the station', so the observed properties relate to the physical medium at the station, and not to any physical artifact such as a mooring, buoy, benchmark, monument, well, etc."@en,
+        "A statistical sample is often designed to be characteristic of an entire population, so that observations can be made regarding the sample that provide a good estimate of the properties of the population."@en ;
+    skos:note """
+  Samples are typically subsets or extracts from an entity or feature.
+  Every sample is expected to (eventually) be the feature of interest of an Observation. 
+  
+  Samples are used in situations where observations cannot be made directly on the ultimate feature of interest, either because the entire feature cannot be observed, or because it is more convenient to use a proxy.
+  Samples are thus artifacts of an observational strategy, and have no significant function outside of their role in the observation process. 
+  The characteristics of the samples themselves are of little interest, except perhaps to the manager of a sampling campaign.
+
+  A Sample is intended to sample some FatureOfInterest, so there is an expectation of at least one isSampleOf property. 
+  However, in some cases the identity, and even the exact type, of the sampled feature may not be known when observations are made using the sample.
+
+  Physical samples are sometimes known as 'specimens'. A transient sample, such as a ships-track or flight-line, might be identified and described, but is unlikely to be revisited exactly.
+  """@en .
+
+sosa:ObservationCollection a owl:Class ;
+    rdfs:label "Observation Collection"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-basic/ObservationCollection> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasUltimateFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sensor ;
+            owl:onProperty sosa:madeBySensor ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:observedProperty ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ObservingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( sosa:Observation sosa:ObservationCollection ) ] ;
+            owl:onProperty sosa:hasMember ],
+        sosa:ExecutionCollection ;
+    skos:definition """
+  set of one or more Observations or ObservationCollections; collections may be nested
+
+  All Observation properties may appear in an Observation Collection, including: 
+  hasFeatureOfInterest , hasUltimateFeatureOfInterest , usedProcedure , madeBySensor , observedProperty , phenomenonTime , startTime, resultTime , hasResult , hasSimpleResult : 
+  If they are present, the value of these properties summarize the values of the matching properties of the member observations, where membership is either direct or transitive through one or more member observation collections. 
+  The following consistency rules apply with respect to the Observation properties listed above: 
+  
+  1. Where an individual Observation Collection omits a property, a member Observation (direct or transitive) MAY have any value for that property.
+
+  2. Where an individual Observation Collection has a single value for a property, each member Observation(direct or transitive) MUST have that same value for the property - i.e., the collection is homogeneous in that property.  That property MAY then be omitted in any member Observation or Observation Collection.
+
+  3. Where an individual Observation Collection has more than one value for a property, each member Observation (direct or transitive) MUST have a value for that property that matches one of the values for the property in the collection. 
+  
+  4. Where an individual Observation Collection has a value for a property that is a range or interval, each member Observation (direct or transitive) MUST have a value for that property that matches or falls within that range or interval.
+
+  5. Where an individual Observation Collection has more than one value for a property that is a range or interval, each member Observation (direct or transitive) MUST have a value for that property that either matches or falls within one of those ranges or intervals.
+  """@en ;
+    skos:note """The results of collections of observations are often packaged in a 'data cube' whose axes define the
+      range of properties of the set of observations.""",
+        """An instance of ObservationCollection represents a container for a set of data derived from observations.
+  This broadly corresponds with the class Dataset from DCAT."""@en,
+        "The members of a collection do not necessarily share a common value for any property. "@en .
+
+sosa:Observation a owl:Class ;
+    rdfs:label "Observation"@en ;
+    ns2:implements <http://www.opengis.net/spec/om/3.0/req/obs-cpt/Observation> ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/sosa/obs/> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sosa:ObservingProcedure ;
+            owl:onProperty sosa:usedProcedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:FeatureOfInterest ;
+            owl:onProperty sosa:hasUltimateFeatureOfInterest ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Property ;
+            owl:onProperty sosa:observedProperty ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Stimulus ;
+            owl:onProperty sosa:wasOriginatedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sosa:Sensor ;
+            owl:onProperty sosa:madeBySensor ],
+        sosa:Execution ;
+    skos:definition """
+  act of carrying out an ObservingProcedure using a Sensor to estimate or calculate a value of an observable Property of a FeatureOfInterest
+  """@en ;
+    skos:example "The activity of estimating the intensity of an Earthquake using the Mercalli intensity scale is an Observation as is measuring the moment magnitude, i.e., the energy released by said earthquake."@en ;
+    skos:note """
+  When the feature of interest cannot be observed directly, a sample of it might be used in Observations as a proxy for it. In such case, the Sample is the proximate Feature of Interest of the Observation, while the (ultimate) Feature of Interest of the act of Sampling (i.e., the entity that the Sample is ultimately 'isSampleOf') is the ultimate Feature of Interest of the Observation.
+  """ ;
+    skos:scopeNote """
+  An Observation primarily concerns a single Property of a single FeatureOfInterest. 
+  Observations of multiple properties, or other combinations of Observations, may be described in an ObservationCollection. 
+  
+  Alternatively, applications may choose to encapsulate complexity by defining a complex property with multiple individual components, and a corresponding complex result (e.g., a vector). 
+  This approach is not prohibited by the SSN Ontology, but the details are beyond the scope of SSN.
+  """@en .
+
+<http://www.w3.org/ns/sosa/common/> a owl:Ontology ;
+    dcterms:created "2024-02-02"^^xsd:date ;
+    dcterms:creator [ a foaf:Agent ;
+            foaf:name "W3C/OGC Spatial Data on the Web Working Group"@en ] ;
+    dcterms:description "Core classes and properties for the SSN Ontology."@en ;
+    dcterms:license <http://www.opengeospatial.org/ogc/Software>,
+        <http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+    dcterms:rights "Copyright 2025 W3C/OGC." ;
+    dcterms:title "Sensor, Observation, Sample, and Actuator (SOSA) Ontology - core module"@en .
+
